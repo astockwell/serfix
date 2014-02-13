@@ -7,6 +7,8 @@ Fix PHP serialized objects in MySQL dumps after find/replace
 About
 -----
 
+__`serfix` corrects the character counts in PHP serialized string objects, within a MySQL dump file (.sql), when for whatever reason you need to do a mass change of the strings themselves.__
+
 `serfix` was conceived out of a need to automate complex wordpress development and deployment workflows for a large number of projects. Specifically, when changing environments between development/staging/production, a find/replace tool (such as `sed`) can be used on the database dumps to update the site's root URL, however this will generally have unforseen and undesireable consequences when it breaks the PHP serialized objects in the dump file.
 
 `serfix` was originally a Python script, but for a variety of reasons it was desirable to write it in a compiled binary form.
