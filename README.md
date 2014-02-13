@@ -23,9 +23,8 @@ Usage
 
 #### Flags
 
-`-f`, `--force`: Force overwrite of destination file if it exists
-
-`-h`, `--help`: Print serfix help
+- `-f`, `--force`: Force overwrite of destination file if it exists (used with [outfilename] specified only)
+- `-h`, `--help`: Print serfix help
 
 #### Line Filter Examples
 
@@ -41,11 +40,11 @@ db_name_$(date +"%Y.%m.%d_%H.%M").sql.gz
 #### Standalone Examples
 
 ```
-serfix myfile.sql
+serfix myfile.sql # saves over source file
 
-serfix myfile.sql new_filename.sql
+serfix myfile.sql new_filename.sql # saves to new file
 
-serfix -f myfile.sql existing_filename.sql
+serfix -f myfile.sql existing_filename.sql # saves over destination file
 ```
 
 
