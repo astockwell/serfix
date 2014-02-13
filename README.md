@@ -1,15 +1,15 @@
 serfix
 ======
 
-Fix PHP serialized objects in MySQL dumps after find/replace
+Fix PHP serialized objects in MySQL dumps after find/replace.
 
 
 About
 -----
 
-__`serfix` corrects the character counts in PHP serialized string objects, within a MySQL dump file (.sql), when for whatever reason you need to do a mass change of the strings themselves.__
+__`serfix` corrects the character counts in PHP serialized string objects, within a MySQL dump file (.sql), when you need to do a mass change of the strings themselves.__
 
-`serfix` was conceived out of a need to automate complex wordpress development and deployment workflows for a large number of projects. Specifically, when changing environments between development/staging/production, a find/replace tool (such as `sed`) can be used on the database dumps to update the site's root URL, however this will generally have unforseen and undesireable consequences when it breaks the PHP serialized objects in the dump file.
+`serfix` was conceived out of a need to automate complex Wordpress development and deployment workflows for a large number of projects. Specifically, when changing environments between development/staging/production, a find/replace tool (such as `sed`) can be used on the database dumps to update the site's root URL, however this will generally have unforseen and undesireable consequences when it breaks the PHP serialized objects in the dump file.
 
 `serfix` was originally a Python script, but for a variety of reasons it was desirable to write it in a compiled binary form.
 
@@ -30,7 +30,7 @@ Usage
 
 `cat filename.sql | serfix > fixed_filename.sql`
 
-`ssh -C user@host mysqldump --single-transaction --opt --net_buffer_length=75000 -u'username' -p'password' db_name | serfix | gzip > db_name_$(date +"%Y.%m.%d_%H.%M").sql.gz`
+`ssh -C user@host mysqldump --single-transaction --opt --net_buffer_length=75000 -u'username' -p'password' db_name | sed 's/development.com/production.com' | serfix | gzip > db_name_$(date +"%Y.%m.%d_%H.%M").sql.gz`
 
 #### Standalone Examples
 
@@ -39,6 +39,26 @@ Usage
 `serfix myfile.sql new_filename.sql`
 
 `serfix -f myfile.sql existing_filename.sql`
+
+
+Workflow
+--------
+
+#### 1. Dump MySQL database (say, from your dev environment)
+
+Gives you a .sql file full of `s:20:"http://mydevsite.com";` PHP serialized string objects.
+
+#### 2. Find/replace 'mydevsite.com' with 'myproductionsite.com' in your .sql file
+
+Gives you a .sql file full of `s:20:"http://myproductionsite.com";` objects that PHP will reject because the character count doesn't match the string.
+
+#### 3. Run `serfix`
+
+Gives you a .sql file full of `s:27:"http://myproductionsite.com";` objects with the character count correctly matching the string.
+
+#### 4. Import MySQL dump (say, to your prod environment)
+
+High fives all around.
 
 
 Considerations
@@ -50,7 +70,7 @@ Considerations
 Benchmarks
 ----------
 
-`serfix` is fast but not wildly so. It should run on an average wordpress database in <1s. In testing, a 250MB .sql file that contained ~940k regexp match/fixes (dumped with `--net_buffer_length=75000`), it takes ~38s on a 2 x 2.4GHz Quad-Core Xeon Mac Pro with 16GB RAM. YMMV.
+`serfix` is fast but not wildly so. It should run on an average Wordpress database in <1s. In testing, a 250MB .sql file that contained ~940k regexp match/fixes (dumped with `--net_buffer_length=75000`), it takes ~38s on a 2 x 2.4GHz Quad-Core Xeon Mac Pro with 16GB RAM. YMMV.
 
 
 Roadmap
