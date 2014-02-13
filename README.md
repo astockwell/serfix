@@ -24,6 +24,7 @@ Usage
 #### Flags
 
 `-f`, `--force`: Force overwrite of destination file if it exists
+
 `-h`, `--help`: Print serfix help
 
 #### Line Filter Examples
