@@ -23,22 +23,29 @@ Usage
 
 #### Flags
 
-- `-f`, `--force`: Force overwrite of destination file if it exists
-- `-h`, `--help`: Print serfix help
+`-f`, `--force`: Force overwrite of destination file if it exists
+`-h`, `--help`: Print serfix help
 
 #### Line Filter Examples
 
-`cat filename.sql | serfix > fixed_filename.sql`
+```
+cat filename.sql | serfix > fixed_filename.sql
 
-`ssh -C user@host mysqldump --single-transaction --opt --net_buffer_length=75000 -u'username' -p'password' db_name | sed 's/development.com/production.com' | serfix | gzip > db_name_$(date +"%Y.%m.%d_%H.%M").sql.gz`
+ssh -C user@host mysqldump --single-transaction --opt \
+--net_buffer_length=75000 -u'username' -p'password' db_name \
+| sed 's/development.com/production.com' | serfix | gzip > \
+db_name_$(date +"%Y.%m.%d_%H.%M").sql.gz
+```
 
 #### Standalone Examples
 
-`serfix myfile.sql`
+```
+serfix myfile.sql
 
-`serfix myfile.sql new_filename.sql`
+serfix myfile.sql new_filename.sql
 
-`serfix -f myfile.sql existing_filename.sql`
+serfix -f myfile.sql existing_filename.sql
+```
 
 
 Workflow
