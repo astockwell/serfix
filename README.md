@@ -77,7 +77,7 @@ Considerations
 Benchmarks
 ----------
 
-`serfix` is fast but not wildly so. It should run on an average Wordpress database in <1s. In testing, a 250MB .sql file that contained ~940k regexp match/fixes (dumped with `--net_buffer_length=75000`), it takes ~38s on a 2 x 2.4GHz Quad-Core Xeon Mac Pro with 16GB RAM. YMMV.
+`serfix` is fast but not wildly so. It should run on an average Wordpress database in <1s. In testing, it took ~38s to fix a 250MB .sql file that contained ~940k regexp match/fixes (dumped with `--net_buffer_length=75000`) on a 2 x 2.4GHz Quad-Core Xeon Mac Pro with 16GB RAM. YMMV.
 
 
 Roadmap
