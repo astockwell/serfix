@@ -85,10 +85,6 @@ func main() {
 
 			line, err = r.ReadString('\n')
 		}
-		// if isPrefix {
-		// 	fmt.Println(errors.New("buffer size too small"))
-		// 	return
-		// }
 		if err != io.EOF {
 			fmt.Println(err)
 			return
