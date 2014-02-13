@@ -9,8 +9,6 @@ import (
 	"os"
 	"regexp"
 	"runtime"
-	// "strconv"
-	// "strings"
 )
 
 const (
@@ -24,8 +22,6 @@ var counter int = 0
 var lexer = regexp.MustCompile(`s:\d+:\\?\".*?\\?\";`)
 var re = regexp.MustCompile(`(s:)(\d+)(:\\?\")(.*?)(\\?\";)`)
 var esc = regexp.MustCompile(`(\\"|\\'|\\\\|\\a|\\b|\\n|\\r|\\s|\\t|\\v)`)
-
-// var escstrs = []string{`\"`, `\'`, `\\`, `\a`, `\b`, `\n`, `\r`, `\s`, `\t`, `\v`}
 
 func init() {
 	// Short flags too
@@ -152,13 +148,7 @@ func main() {
 
 func replace(matches string) string {
 	parts := re.FindStringSubmatch(matches)
-
 	str_len := len(parts[4]) - len(esc.FindAllString(parts[4], -1))
-	// esc_len := 0
-	// for _, escstr := range escstrs {
-	// 	esc_len = esc_len + strings.Count(parts[4], escstr)
-	// }
-
 	return fmt.Sprintf("%s%d%s%s%s", parts[1], str_len, parts[3], parts[4], parts[5])
 }
 
