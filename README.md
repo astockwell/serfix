@@ -14,6 +14,14 @@ __`serfix` corrects the character counts in PHP serialized string objects, withi
 `serfix` was originally a Python script, but for a variety of reasons it was desirable to write it in a compiled binary form.
 
 
+Build
+-----
+
+1. Clone & `cd` into the repo
+2. `go build serfix.go` (requires go compiler installed)
+3. Copy the resulting `serfix` binary into your path
+
+
 Usage
 -----
 
