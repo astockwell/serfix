@@ -32,7 +32,7 @@ Usage
 #### Flags
 
 - `-f`, `--force`: Force overwrite of destination file if it exists (only used with `[outfilename]` specified)
-- `-h`, `--help`: Print serfix help
+- `-h`, `--help`: Print `serfix` help
 
 #### Line Filter Examples
 
@@ -41,7 +41,7 @@ cat filename.sql | serfix > fixed_filename.sql
 
 ssh -C user@host mysqldump --single-transaction --opt \
 --net_buffer_length=75000 -u'username' -p'password' db_name \
-| sed 's/development.com/production.com' | serfix | gzip > \
+| sed 's/development.com/production.com/g' | serfix | gzip > \
 db_name_$(date +"%Y.%m.%d_%H.%M").sql.gz
 ```
 
