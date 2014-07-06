@@ -14,6 +14,7 @@ import (
 const (
 	helpFlagUsage  = "Help and usage instructions"
 	forceFlagUsage = "Force overwrite of destination file if it exists"
+	readBuffer     = 2 * 1024 * 1024
 )
 
 var helpPtr = flag.Bool("help", false, helpFlagUsage)
@@ -21,7 +22,7 @@ var forcePtr = flag.Bool("force", false, forceFlagUsage)
 var counter int = 0
 var lexer = regexp.MustCompile(`s:\d+:\\?\".*?\\?\";`)
 var re = regexp.MustCompile(`(s:)(\d+)(:\\?\")(.*?)(\\?\";)`)
-var esc = regexp.MustCompile(`(\\"|\\'|\\\\|\\a|\\b|\\n|\\r|\\s|\\t|\\v)`)
+var esc = regexp.MustCompile(`(\\"|\\'|\\\\|\\a|\\b|\\f|\\n|\\r|\\s|\\t|\\v)`)
 
 func init() {
 	// Short flags too
@@ -39,7 +40,7 @@ func main() {
 	args := flag.Args()
 
 	if *helpPtr {
-		printUsage()
+		PrintUsage()
 		return
 	}
 
@@ -77,11 +78,11 @@ func main() {
 		// close out file
 		defer tempfile.Close()
 
-		r := bufio.NewReaderSize(infile, 2*1024*1024)
+		r := bufio.NewReaderSize(infile, readBuffer)
 
 		line, err := r.ReadString('\n')
 		for err == nil {
-			tempfile.WriteString(lexer.ReplaceAllStringFunc(string(line), replace))
+			tempfile.WriteString(lexer.ReplaceAllStringFunc(string(line), Replace))
 
 			line, err = r.ReadString('\n')
 		}
@@ -123,11 +124,11 @@ func main() {
 		}
 
 	} else {
-		r := bufio.NewReaderSize(os.Stdin, 2*1024*1024)
+		r := bufio.NewReaderSize(os.Stdin, readBuffer)
 
 		line, isPrefix, err := r.ReadLine()
 		for err == nil && !isPrefix {
-			fmt.Println(lexer.ReplaceAllStringFunc(string(line), replace))
+			fmt.Println(lexer.ReplaceAllStringFunc(string(line), Replace))
 
 			line, isPrefix, err = r.ReadLine()
 		}
@@ -142,13 +143,13 @@ func main() {
 	}
 }
 
-func replace(matches string) string {
+func Replace(matches string) string {
 	parts := re.FindStringSubmatch(matches)
 	str_len := len(parts[4]) - len(esc.FindAllString(parts[4], -1))
 	return fmt.Sprintf("%s%d%s%s%s", parts[1], str_len, parts[3], parts[4], parts[5])
 }
 
-func printUsage() {
+func PrintUsage() {
 	fmt.Println("Usage: serfix [flags] filename [outfilename]")
 	fmt.Println("Alt. Usage: cat filename | serfix")
 	fmt.Println("")

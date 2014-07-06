@@ -17,6 +17,10 @@ __`serfix` corrects the character counts in PHP serialized string objects, withi
 Build
 -----
 
+`go get github.com/astockwell/serfix`
+
+-or-
+
 1. Clone & `cd` into the repo
 2. `go build serfix.go` (requires go compiler installed)
 3. Copy the resulting `serfix` binary into your path
@@ -91,7 +95,7 @@ Benchmarks
 Roadmap
 -------
 
-- Write tests (the regexp matching and char counting were extensively tested in the previous Python incarnation, need to port to Go)
+- Expand test suite
 - Remove the second regexp search that is called on every match to find the submatches (this seems to be necessary with the Go standard regexp package, but may not be in the future)
 - Better yet, rewrite all regexp operations using a proper lexer
 
