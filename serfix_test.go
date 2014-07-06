@@ -14,7 +14,7 @@ var serfixTests = []struct {
 		out: `s:0:"";`,
 	},
 	{
-		// Empty string, no escaped quotes
+		// Empty string, with escaped quotes
 		in:  `s:9:\"\";`,
 		out: `s:0:\"\";`,
 	},
@@ -39,22 +39,22 @@ var serfixTests = []struct {
 		out: `s:28:\"http://example.com/image.jpg\";`,
 	},
 	{
-		// Escaped paths, with escaped quotes
+		// Escaped paths
 		in:  `s:00:\".*wp-(atom|rdf|rss|rss2|feed|commentsrss2).php$\";`,
 		out: `s:47:\".*wp-(atom|rdf|rss|rss2|feed|commentsrss2).php$\";`,
 	},
 	{
-		// Escaped paths, with escaped quotes
+		// Escaped paths
 		in:  `s:00:\".*wp-(atom|rdf|rss|rss2|feed|commentsrss2)\\.php$\";`,
 		out: `s:48:\".*wp-(atom|rdf|rss|rss2|feed|commentsrss2)\\.php$\";`,
 	},
 	{
-		// Complex string with escape sequences, with escaped quotes
+		// Complex string with escape sequences
 		in:  `s:000:\"1234 N. Myspace Road, Suburbn, AL 12345  |  (555) 555-5555\r\n<br /><br />\r\nPerson places things ideas are the fun part of all thisby Special People Town Foundation.\";`,
 		out: `s:163:\"1234 N. Myspace Road, Suburbn, AL 12345  |  (555) 555-5555\r\n<br /><br />\r\nPerson places things ideas are the fun part of all thisby Special People Town Foundation.\";`,
 	},
 	{
-		// Spanish characters, with escaped quotes
+		// Spanish characters
 		in:  `s:000:\"<br /><h2>Nuestro objetivo es servir a todos los niños del distrito escolar primario <br />sin ningún costo. </h2>\";`,
 		out: `s:116:\"<br /><h2>Nuestro objetivo es servir a todos los niños del distrito escolar primario <br />sin ningún costo. </h2>\";`,
 	},
