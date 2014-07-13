@@ -17,6 +17,10 @@ __`serfix` corrects the character counts in PHP serialized string objects, withi
 Build
 -----
 
+Download the latest compiled release from [releases](https://github.com/astockwell/serfix/releases) and put it in your PATH (somewhere like `/usr/local/bin` will usually work on OSX).
+
+-or-
+
 `go get github.com/astockwell/serfix`
 
 -or-
