@@ -26,8 +26,7 @@ Download the latest compiled release from [releases](https://github.com/astockwe
 -or-
 
 1. Clone & `cd` into the repo
-2. `go build serfix.go` (requires go compiler installed)
-3. Copy the resulting `serfix` binary into your path
+2. `go install serfix.go` (requires go compiler installed)
 
 
 Usage
